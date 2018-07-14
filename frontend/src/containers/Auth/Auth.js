@@ -6,6 +6,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import {updateObject, checkValidity} from '../../shared/utility';
 import {controls} from '../../shared/controls';
 import Form from '../../components/UI/Form/Form';
+import FacebookLogin from 'react-facebook-login';
     
 class Auth extends Component {
     state= {
@@ -43,11 +44,14 @@ class Auth extends Component {
         return formElementsArray;
     };
 
-
+    responseFacebook(response) {
+        console.log(response)
+      }
     render () {
         
         const registrationElementArray = this.formElementsArray(this.state.registration);
         const signupElementArray = this.formElementsArray(this.state.signup);
+
 
 
         if(this.props.loading){
@@ -80,7 +84,16 @@ class Auth extends Component {
                         onChange={this.inputChangedHandler}
                         isSignup = {true}
                     />         
-                </div>  
+                </div> 
+                <div className={classes.Facebook}>
+                <FacebookLogin
+                    appId="212500009591102"
+                    autoLoad={true}
+                    fields="name,email,picture"
+                    callback={this.responseFacebook}
+                />
+                </div>
+                
             </div>
         );
     }
